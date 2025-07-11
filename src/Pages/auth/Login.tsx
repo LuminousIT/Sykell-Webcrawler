@@ -1,7 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { LoginForm } from "./components/LoginForm";
+import { useAuth } from "@/hooks";
 
 const Login = () => {
+  const { loading, login } = useAuth();
+  console.log({ loading, login });
   return (
     <Box
       sx={{
