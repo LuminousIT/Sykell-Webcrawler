@@ -1,11 +1,15 @@
-import React from "react";
 import { Outlet } from "react-router";
+import Navbar from "./components/Navbar";
 
 const UnprotectedLayout = () => {
   return (
     <div>
-      <section>App bar Unprotected</section>
-      <Outlet />
+      <header>
+        <Navbar />
+      </header>
+      <section id="main">
+        <Outlet />
+      </section>
     </div>
   );
 };
