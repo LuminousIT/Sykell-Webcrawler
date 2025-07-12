@@ -4,16 +4,18 @@ import { z } from "zod/v4";
 
 import { Link } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { useAuth } from "@/hooks";
 
 const RegistrationSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }),
   password: z.string().min(1, { message: "Password is required" }),
-  username: z.string().min(1, { message: "Fullname is required" }),
+  username: z.string().min(1, { message: "Username is required" }),
 });
 
 type IRegistrationSchema = z.infer<typeof RegistrationSchema>;
 
 const RegistrationForm = () => {
+  const { register: handleRegister, loading } = useAuth();
   const {
     control,
     register,
@@ -30,7 +32,7 @@ const RegistrationForm = () => {
   });
 
   const onSubmit = async (data: IRegistrationSchema) => {
-    console.log({ data });
+    await handleRegister(data);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -96,7 +98,7 @@ const RegistrationForm = () => {
         fullWidth
         type="submit"
         variant="contained"
-        loading={isSubmitting}
+        loading={loading}
         aria-busy={isSubmitting}
         loadingPosition="end"
         sx={{ mb: 4 }}

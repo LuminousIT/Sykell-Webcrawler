@@ -11,3 +11,16 @@ export const getFromStorage = <T>(key: string): T | null => {
     return null;
   }
 };
+
+export const saveToStorage = <T>(key: string, data: T): void => {
+  try {
+    sessionStorage.setItem(key, JSON.stringify(data));
+  } catch (error) {
+    console.error(`Error saving to sessionStorage for key "${key}":`, error);
+  }
+};
+
+export const getErrorMessage = (error: unknown) => {
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  return errorMessage;
+};

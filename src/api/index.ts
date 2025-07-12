@@ -1,8 +1,9 @@
 import { getFromStorage } from "@/utils";
 import axios, { type AxiosInstance } from "axios";
 
-export const baseURL = import.meta.env.BASE_URL;
+export const baseURL = import.meta.env.VITE_BASE_URL;
 
+console.log({ baseURL });
 const axiosInstance: AxiosInstance = axios.create({
   baseURL,
 });

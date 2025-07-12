@@ -3,7 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
 
 import { Button, Typography, Box, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks";
 
 const LoginSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
@@ -13,6 +14,8 @@ const LoginSchema = z.object({
 type ILoginSchema = z.infer<typeof LoginSchema>;
 
 const LoginForm = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const {
     control,
     register,
@@ -26,9 +29,12 @@ const LoginForm = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
-    console.log(data);
+    login(data, onSuccessCallback);
   };
 
+  const onSuccessCallback = () => {
+    navigate("/dashboard");
+  };
   const renderErrorMessage = () => (
     <Box sx={{ mb: 4, color: "red" }}>
       <Typography>Invalid Credentials!</Typography>
