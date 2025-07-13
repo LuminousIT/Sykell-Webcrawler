@@ -2,7 +2,13 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
 
-import { Button, Box, TextField, InputLabel } from "@mui/material";
+import {
+  Button,
+  Box,
+  TextField,
+  InputLabel,
+  CircularProgress,
+} from "@mui/material";
 
 const URLFormSchema = z.object({
   urls: z.string().min(1, { message: "URL is required" }),
@@ -66,8 +72,9 @@ const URLForm = ({ onSubmitUrls, loading }: Props) => {
         disabled={loading}
         sx={{ mb: 4 }}
         aria-busy={loading}
-        style={{ backgroundColor: "#0A1F2C", color: "#fff" }}
+        // style={{ backgroundColor: "#0A1F2C", color: "#fff" }}
       >
+        {loading && <CircularProgress size={14} color="warning" />}
         Submit URLs
       </Button>
     </form>

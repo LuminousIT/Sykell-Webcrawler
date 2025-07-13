@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { webSocketUrl } from "./socket";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import type { TUseWebSocketHookResponse } from "./types";
+import type { ICrawlJobData } from "@/api/url-management/types";
 
 type TConnectionStatus =
   | "Connecting"
@@ -12,11 +13,11 @@ type TConnectionStatus =
 type TUseWSHook = TUseWebSocketHookResponse<unknown> & {
   wsRef: WebSocket | null;
   connectionStatus: TConnectionStatus;
-  socketData: WebSocket | null;
+  socketData: ICrawlJobData | null;
 };
 export const useReactWebSocket = () => {
   const wsRef = useRef<WebSocket | null>(null);
-  const [socketData, setSocketData] = useState(null);
+  const [socketData, setSocketData] = useState<ICrawlJobData | null>(null);
   const {
     sendMessage,
     sendJsonMessage,
@@ -37,7 +38,7 @@ export const useReactWebSocket = () => {
     onClose: () => console.log("WebSocket connection closed"),
     shouldReconnect: () => true, // Attempt to reconnect on all close events
     reconnectAttempts: 10,
-    reconnectInterval: 3000,
+    reconnectInterval: 1000,
     onMessage: (event: WebSocketEventMap["message"]) => {
       console.log("message event ", { liveEvent: event });
       onEvent(event);

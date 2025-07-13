@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { getErrorMessage } from "@/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useReactWebSocket } from "@/hooks/useReactWebSocket";
+import { WebcrawlerProgressIndicator } from "./components/WebcrawlerProgressIndicator";
 
 const URLManagement = () => {
   // const { websocketInstance, isConnected, socketData } = useWebsocket();
@@ -32,13 +33,13 @@ const URLManagement = () => {
     }
   };
 
-  console.log({
-    connectionStatus,
-    getWebSocket,
-    lastJsonMessage,
-    jobID,
-    socketData,
-  });
+  // console.log({
+  //   connectionStatus,
+  //   getWebSocket,
+  //   lastJsonMessage,
+  //   jobID,
+  //   socketData,
+  // });
   return (
     <Box>
       <Stack direction={"row"} alignItems={"center"} gap={1}>
@@ -67,6 +68,11 @@ const URLManagement = () => {
       <Box sx={{ mt: 4, mb: 2 }}>
         <URLForm onSubmitUrls={handleSubmitUrls} loading={isSubmitting} />
       </Box>
+      {socketData && (
+        <Box>
+          <WebcrawlerProgressIndicator crawlJob={socketData} />
+        </Box>
+      )}
     </Box>
   );
 };
