@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 const defaultProvider: TAuthValuesProvider = {
   user: null,
-  loading: false,
+  loading: true,
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
