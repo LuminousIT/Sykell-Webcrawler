@@ -10,10 +10,9 @@ import { WebcrawlerProgressIndicator } from "./components/WebcrawlerProgressIndi
 
 const URLManagement = () => {
   // const { websocketInstance, isConnected, socketData } = useWebsocket();
-  const { connectionStatus, getWebSocket, lastJsonMessage, socketData } =
-    useReactWebSocket();
+  const { connectionStatus, socketData } = useReactWebSocket();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [jobID, setJobID] = useState<string>("");
+  // const [jobID, setJobID] = useState<string>("");
 
   const handleSubmitUrls = async (data: { urls: string }) => {
     try {
@@ -21,7 +20,7 @@ const URLManagement = () => {
       const userUrls = data.urls.trim().split(",");
       const result = await crawlAPIRequest({ urls: userUrls });
       toast.success(result?.message);
-      setJobID(result?.job_id || "");
+      // setJobID(result?.job_id || "");
     } catch (error) {
       // @ts-expect-error ignore briefly
       const errorMessage = error?.response?.data?.error;
