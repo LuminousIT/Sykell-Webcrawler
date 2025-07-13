@@ -1,5 +1,6 @@
 import { getFromStorage } from "@/utils";
 import axios, { type AxiosInstance } from "axios";
+import { authConfig } from "./auth/types";
 
 export const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -9,7 +10,7 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = getFromStorage("token");
+  const token = getFromStorage(authConfig.token);
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
     config.headers["Content-Type"] = "application/json";

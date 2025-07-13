@@ -105,6 +105,7 @@ const LoginForm = () => {
         loading={isSubmitting}
         sx={{ mb: 4 }}
         aria-busy={isSubmitting}
+        style={{ backgroundColor: "#0A1F2C" }}
       >
         <span>Login</span>
       </Button>

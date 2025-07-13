@@ -10,7 +10,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
       <App />
-      <ToastContainer autoClose={false} draggable={false} />
+      <ToastContainer draggable={false} />
     </AuthProvider>
   </StrictMode>
 );
