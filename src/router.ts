@@ -5,6 +5,7 @@ import Register from "./Pages/auth/Register";
 import AuthGuard from "./Layout/AuthGuard";
 import GuestGuard from "./Layout/GuestGuard";
 import URLManagement from "./Pages/url-management";
+import CrawlDetails from "./Pages/dashboard/CrawlDetails";
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +24,19 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     Component: AuthGuard,
     children: [
-      { path: "", Component: Dashboard },
-      { path: "overview", Component: Dashboard },
+      {
+        path: "",
+        Component: Dashboard,
+      },
+      {
+        path: "details",
+        Component: CrawlDetails,
+      },
+      // {
+      //   path: "overview",
+      //   Component: Dashboard,
+      //   children: [{ path: "details", Component: CrawlDetails }],
+      // },
       { path: "url-management", Component: URLManagement },
     ],
   },

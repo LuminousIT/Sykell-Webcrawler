@@ -37,8 +37,13 @@ export interface ICrawlJobResult {
   link_analysis: {
     internal_links: number;
     external_links: number;
-    inaccessible_links: [];
+    inaccessible_links: TInaccessibleLinks[];
   };
   has_login_form: boolean;
   crawled_at: string;
 }
+
+type TInaccessibleLinks = {
+  link_url: string;
+  error_code: string;
+};

@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const getFromStorage = <T>(key: string): T | null => {
   try {
     const storageData = sessionStorage.getItem(key);
@@ -23,4 +25,9 @@ export const saveToStorage = <T>(key: string, data: T): void => {
 export const getErrorMessage = (error: unknown) => {
   const errorMessage = error instanceof Error ? error.message : String(error);
   return errorMessage;
+};
+
+export const formatDate = (date: string) => {
+  const newDate = format(new Date(date), "dd.MM.yyyy");
+  return newDate;
 };

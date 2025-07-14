@@ -9,9 +9,11 @@ import {
   type GridColDef,
 } from "@mui/x-data-grid";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [crawlHistory, setCrawlHistory] = useState<ICrawlJobResult[]>([]);
 
@@ -55,6 +57,7 @@ const Dashboard = () => {
 
   const handleViewDetails = (data: ICrawlJobResult) => {
     console.log({ data });
+    navigate("details", { state: data });
   };
 
   useEffect(() => {

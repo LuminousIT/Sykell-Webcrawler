@@ -2,7 +2,7 @@ export const navItems = [
   {
     title: "Dashboard",
     icon: "tabler:smart-home",
-    path: "/dashboard/overview",
+    path: "/dashboard",
   },
   {
     title: "URL Management",
