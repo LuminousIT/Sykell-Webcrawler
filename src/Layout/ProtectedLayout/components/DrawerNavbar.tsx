@@ -16,13 +16,21 @@ import { Icon } from "@iconify/react";
 import { navItems } from "../navigation";
 import { Tooltip } from "@mui/material";
 import { useAuth } from "@/hooks";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
 export default function DrawerNavbar() {
   const { logout } = useAuth();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { pathname } = useLocation();
+  const isActive = (item: string) => {
+    const res = pathname.split("/");
+    const curr = res[res.length - 1];
+    return curr.includes(item);
+  };
+
+  console.log({ result: isActive("url-management") });
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -36,7 +44,7 @@ export default function DrawerNavbar() {
       <Divider />
       <List>
         {navItems.map((item, index) => (
-          <ListItem key={index} disablePadding>
+          <ListItem key={index}>
             <NavLink to={item.path}>
               <ListItemButton sx={{ textAlign: "center", color: "#fff" }}>
                 <ListItemText primary={item.title} />
@@ -80,7 +88,13 @@ export default function DrawerNavbar() {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item, index) => (
               <NavLink key={index} to={item.path}>
-                <Button key={index} sx={{ color: "#fff" }}>
+                <Button
+                  key={index}
+                  sx={{
+                    color: "#fff",
+                    backgroundColor: isActive(item.id) ? "tomato" : "",
+                  }}
+                >
                   {item.title}
                 </Button>
               </NavLink>
