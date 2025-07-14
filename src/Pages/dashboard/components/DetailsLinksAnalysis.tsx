@@ -29,12 +29,12 @@ export const DetailsLinksAnalysis = ({ details }: Props) => {
           />
           <DetailsCountInfo
             label="Inaccessible Links"
-            value={details.link_analysis.inaccessible_links.length}
+            value={details.link_analysis.inaccessible_links?.length || 0}
           />
         </Box>
         <Typography variant="h5">Broken Links </Typography>
         <Box sx={{ mt: 2, ml: 1, maxHeight: 200, overflowY: "scroll" }}>
-          {details.link_analysis.inaccessible_links.map((item, index) => (
+          {details.link_analysis.inaccessible_links?.map((item, index) => (
             <Box key={index} sx={{ my: 1 }}>
               <Stack direction={"row"} justifyContent={"space-between"}>
                 <Typography variant="body2">{item.link_url}</Typography>

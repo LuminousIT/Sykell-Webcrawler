@@ -6,6 +6,7 @@ export interface ICrawlURLResponse {
   job_id: string;
   message: string;
   status: string;
+  urls?: string[];
 }
 
 export type TCrawlJob = {
@@ -41,6 +42,9 @@ export interface ICrawlJobResult {
   };
   has_login_form: boolean;
   crawled_at: string;
+  id?: string;
+  user_id?: string;
+  job_id?: string;
 }
 
 type TInaccessibleLinks = {
