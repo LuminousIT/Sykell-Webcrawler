@@ -51,3 +51,21 @@ type TInaccessibleLinks = {
   link_url: string;
   error_code: string;
 };
+
+export type TCrawlJobHistory = {
+  id: string;
+  user_id: number;
+  urls: string[];
+  status: string;
+  progress: number;
+  total_urls: number;
+  created_at: string;
+  started_at: string;
+  completed_at: string;
+  results: ICrawlJobResult[];
+  job_id?: string;
+};
+
+export interface ICrawlJobHistoryResponse {
+  jobs: TCrawlJobHistory[];
+}

@@ -28,6 +28,10 @@ export const getErrorMessage = (error: unknown) => {
 };
 
 export const formatDate = (date: string) => {
-  const newDate = format(new Date(date), "dd.MM.yyyy");
-  return newDate;
+  try {
+    const newDate = format(new Date(date), "dd.MM.yyyy hh:mm:ss");
+    return newDate;
+  } catch (error) {
+    console.log("formatDate error ", error);
+  }
 };
