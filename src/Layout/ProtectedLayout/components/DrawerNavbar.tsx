@@ -10,18 +10,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Icon } from "@iconify/react";
 import { navItems } from "../navigation";
 import { Tooltip } from "@mui/material";
 import { useAuth } from "@/hooks";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import SykellLogo from "@/assets/sykell-logo.png";
 
 const drawerWidth = 240;
 
 export default function DrawerNavbar() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { pathname } = useLocation();
   const isActive = (item: string) => {
@@ -29,24 +30,31 @@ export default function DrawerNavbar() {
     const curr = res[res.length - 1];
     return curr.includes(item);
   };
-
-  console.log({ result: isActive("url-management") });
-
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography sx={{ color: "#fff", py: 2 }} variant="h4">
+      {/* <Typography sx={{ color: "#fff", py: 2 }} variant="h4">
         Sykell
-      </Typography>
+      </Typography> */}
+      <Box sx={{ py: 2 }} onClick={() => navigate("/dashboard")}>
+        <img src={SykellLogo} width={100} alt="sykell logo" />
+      </Box>
+
       <Divider />
       <List>
         {navItems.map((item, index) => (
           <ListItem key={index}>
             <NavLink to={item.path}>
-              <ListItemButton sx={{ textAlign: "center", color: "#fff" }}>
+              <ListItemButton
+                sx={{
+                  textAlign: "center",
+                  color: "#fff",
+                  backgroundColor: isActive(item.id) ? "tomato" : "",
+                }}
+              >
                 <ListItemText primary={item.title} />
               </ListItemButton>
             </NavLink>
@@ -78,13 +86,13 @@ export default function DrawerNavbar() {
           >
             <Icon icon={"tabler:menu-2"} />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
+          <Box
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            onClick={() => navigate("/dashboard")}
           >
-            Sykell
-          </Typography>
+            <img src={SykellLogo} width={100} alt="sykell logo" />
+          </Box>
+
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item, index) => (
               <NavLink key={index} to={item.path}>
