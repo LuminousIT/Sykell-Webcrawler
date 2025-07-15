@@ -1,69 +1,53 @@
-# React + TypeScript + Vite
+### Sykell WebCrawler Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a project that crawls a user given URLs for general page information such as 
+* HTML version
+* Page title
+* Count of heading tags by level (H1, H2, etc.)
+* Number of internal vs. external links
+* Number of inaccessible links (those returning 4xx or 5xx status codes)
+* Presence of a login form
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Installation Instructions
 
-## Expanding the ESLint configuration
+Clone project
+`git clone https://github.com/LuminousIT/Sykell-Webcrawler.git`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Change Directory to Project Directory
+`cd Sykell-Webcrawler`
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Install dependencies
+`npm run dev`
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Then `npm run start`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### Basic Features
+1. **Authentication**
+     *  Register as a user
+     *  Signin as a user
+  
+2. **URL Management**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    * Add URLs for analysis
+    * Start/stop processing on selected URLs
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. **Results Dashboard**
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    * Paginated, sortable table (columns: Title, HTML Version, #Internal Links, etc.)
+    * Column filters and a global search box (fuzzy or prefix matching)
+
+4. **Details View**
+
+    * Click a row to open a detail page showing:
+
+        * Bar or donut chart of internal vs. external links
+        * List of broken links with status codes
+
+5. **Bulk Actions**
+
+    * Re-run analysis or delete selected URLs via checkboxes
+
+6. **Real-Time Progress**
+
+    * Display crawl status for each URL (queued → running → done / error)
