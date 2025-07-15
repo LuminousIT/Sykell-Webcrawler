@@ -2,7 +2,6 @@ import {
   deleteAnalysisRequest,
   getCrawlHistoryRequest,
   rerunAnalysisRequest,
-  stopAnalysisRequest,
 } from "@/api/dashboard";
 import type { ICrawlJobResult } from "@/api/url-management/types";
 import { getErrorMessage } from "@/utils";
@@ -14,7 +13,6 @@ import {
   CardContent,
   CircularProgress,
   Stack,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import {
@@ -68,15 +66,6 @@ const Dashboard = () => {
             label="View Details"
             onClick={() => handleViewDetails(row)}
             showInMenu
-          />,
-          <GridActionsCellItem
-            icon={
-              <Tooltip title="Stop Processing">
-                <Icon icon={"tabler:hand-stop"} />
-              </Tooltip>
-            }
-            label="Stop Job"
-            onClick={() => handleStopJob(row)}
           />,
         ],
       },
@@ -156,26 +145,6 @@ const Dashboard = () => {
     }
   };
 
-  const handleStopJob = async (row: ICrawlJobResult) => {
-    const payload = { job_id: row.job_id, action: "stop" };
-    try {
-      setIsLoading(true);
-      const result = await stopAnalysisRequest(payload);
-      // console.log({ result });
-      if (result) {
-        toast.success(result?.message);
-        handleFetchHistory();
-      }
-    } catch (error) {
-      // @ts-expect-error ignore briefly
-      const errorMessage = error?.response?.data?.error;
-      toast.error(
-        `Error stopping analysis. ${getErrorMessage(errorMessage || error)}`
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
   return (
     <Box>
       <Typography variant="h4">Dashboard</Typography>

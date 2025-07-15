@@ -1,5 +1,13 @@
 import { useMemo, useState } from "react";
-import { Box, Card, CardContent, CardHeader, Chip } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Chip,
+  CircularProgress,
+  Tooltip,
+} from "@mui/material";
 import {
   DataGrid,
   GridActionsCellItem,
@@ -9,9 +17,11 @@ import type {
   ICrawlJobResult,
   TCrawlJobHistory,
 } from "@/api/url-management/types";
-import { formatDate } from "@/utils";
+import { formatDate, getErrorMessage } from "@/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { CrawlResultDialog } from "./CrawlResultDialog";
+import { stopAnalysisRequest } from "@/api/dashboard";
+import { toast } from "react-toastify";
 
 type Props = {
   history: TCrawlJobHistory[];
@@ -23,6 +33,7 @@ export const CrawlJobHistory = ({
   loading,
   refetchJobHistory,
 }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isResultDialogOpen, setIsResultDialogOpen] = useState(false);
   const [rowItem, setRowItem] = useState<ICrawlJobResult[] | null>(null);
   const columns = useMemo<GridColDef<TCrawlJobHistory>[]>(
@@ -70,14 +81,46 @@ export const CrawlJobHistory = ({
             onClick={() => handleShowResults(row?.results)}
             showInMenu
           />,
+          <GridActionsCellItem
+            icon={
+              <Tooltip title="Stop Processing">
+                <>
+                  <Icon icon={"tabler:hand-stop"} />
+                  {isLoading && <CircularProgress color="inherit" size={14} />}
+                </>
+              </Tooltip>
+            }
+            label="Stop Job"
+            onClick={() => handleStopJob(row)}
+          />,
         ],
       },
     ],
     []
   );
 
+  const handleStopJob = async (row: TCrawlJobHistory) => {
+    const payload = { job_id: row.job_id, action: "stop" };
+    try {
+      setIsLoading(true);
+      const result = await stopAnalysisRequest(payload);
+      // console.log({ result });
+      if (result) {
+        toast.success(result?.message);
+        refetchJobHistory();
+      }
+    } catch (error) {
+      // @ts-expect-error ignore briefly
+      const errorMessage = error?.response?.data?.error;
+      toast.error(
+        `Error stopping analysis. ${getErrorMessage(errorMessage || error)}`
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleShowResults = (row: ICrawlJobResult[]) => {
-    console.log({ row });
     if (row) setRowItem(row);
     setIsResultDialogOpen(!isResultDialogOpen);
   };

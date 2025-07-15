@@ -200,7 +200,15 @@ export const CrawlResultDialog = ({
           }}
         />
       </DialogContent>
-      <DialogActions></DialogActions>
+      <DialogActions>
+        <Button
+          sx={{ m: 2 }}
+          variant="contained"
+          onClick={() => handleToggleDialog()}
+        >
+          Close
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
