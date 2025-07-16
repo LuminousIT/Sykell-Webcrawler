@@ -17,9 +17,9 @@ Change Directory to Project Directory
 `cd Sykell-Webcrawler`
 
 Install dependencies
-`npm run dev`
+`npm install`
 
-Then `npm run start`
+Then `npm run dev`
 
 #### Backend Info
 The [Backend repository](https://github.com/LuminousIT/Sykell-Backend) of this project can be cloned at => https://github.com/LuminousIT/Sykell-Backend 
